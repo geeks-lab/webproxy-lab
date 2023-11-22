@@ -157,10 +157,11 @@ void serve_static(int fd, char *filename, int filesize)
     printf("%s", buf);
     /* Send response body to client */
     srcfd = Open(filename, O_RDONLY, 0);
-    srcp = Mmap(0, filesize, PROT_READ, MAP_PRIVATE, srcfd, 0);
+    srcp = (char*)Malloc(filesize);
+    Rio_readn(srcfd, srcp, filesize);
     Close(srcfd);
     Rio_writen(fd, srcp, filesize);
-    Munmap(srcp, filesize);
+    free(srcp);
 
 }
 /*
