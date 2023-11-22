@@ -12,10 +12,18 @@ int main(void) {
     if ((buf = getenv("QUERY_STRING")) != NULL) {
         p = strchr(buf, '&');
         *p = '\0';
-        strcpy(arg1, buf);
-        strcpy(arg2, p + 1);
-        n1 = atoi(arg1);
-        n2 = atoi(arg2);
+        // strcpy(arg1, buf);
+        // strcpy(arg2, p + 1);
+        // n1 = atoi(arg1);
+        // n2 = atoi(arg2);
+        
+        // 이건 서연이 코드고 서연이가 실행하면 문제 없는데 내가 실행하면 뒤의 숫자가 앞의 숫자랑 같아지는데 왜 그런지 못찾음. 
+        // n1 = atoi(strchr(arg1, '=') + 1);
+        // n2 = atoi(strchr(arg1, '=') + 1);
+
+        sscanf(buf, "first=%d", &n1);
+        sscanf(p+1, "second=%d", &n2);
+        
     }
 
     /* Make the response body */
